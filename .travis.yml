@@ -1,3 +1,19 @@
 language: java
 jdk:
   - openjdk11
+install: 
+  - wget http://ftp.br.debian.org/debian/pool/main/a/apiguardian/libapiguardian-java_1.1.0-2_all.deb
+  - sudo dpkg -i libapiguardian-java_1.1.0-2_all.deb
+  - wget http://ftp.br.debian.org/debian/pool/main/o/opentest4j/libopentest4j-java_1.2.0-2_all.deb
+  - sudo dpkg -i libopentest4j-java_1.2.0-2_all.deb
+  - wget http://ftp.br.debian.org/debian/pool/main/u/univocity-parsers/libunivocity-parsers-java_2.8.3-2_all.deb
+  - sudo dpkg -i libunivocity-parsers-java_2.8.3-2_all.deb
+  - wget http://ftp.br.debian.org/debian/pool/main/j/junit5/junit5_5.3.2-2_all.deb
+  - sudo dpkg -i junit5_5.3.2-2_all.deb
+  - wget https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.6.2/junit-platform-console-standalone-1.6.2.jar
+  - mkdir out
+  - javac -d out -cp "out:/usr/share/java/*:." PriorityQueueTest.java
+  - export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/share/java/"
+
+script: 
+  - java -jar junit-platform-console-standalone-1.6.2.jar --class-path out --scan-class-path
